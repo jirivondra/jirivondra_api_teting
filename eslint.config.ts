@@ -3,6 +3,7 @@ import tseslint from 'typescript-eslint'
 import jestPlugin from 'eslint-plugin-jest'
 
 export default [
+  { ignores: ['allure-results/', 'allure-report/', 'coverage/'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -11,11 +12,17 @@ export default [
         process: 'readonly',
       },
     },
+    rules: {
+      complexity: ['error', 2],
+    },
   },
   {
-    files: ['ApiResponse.ts'],
+    files: ['scripts/**/*.mjs'],
     languageOptions: {
-      globals: jestPlugin.environments.globals.globals,
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
     },
   },
   {
