@@ -1,12 +1,16 @@
 {
   "name": "jirivondra-api-testing",
   "version": "1.0.0",
-  "description": "TODO API integration tests using Jest, Pactum and Joi",
+  "description": "TODO API integration tests using Jest and Pactum",
   "type": "module",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test-watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
     "test-verbose": "node --experimental-vm-modules node_modules/.bin/jest --verbose",
+    "test-report": "node --experimental-vm-modules node_modules/.bin/jest --coverage --testEnvironment=allure-jest/node && node scripts/write-coverage-environment.mjs",
+    "test-coverage": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
+    "allure-generate": "allure generate allure-results -o allure-report",
+    "allure-open": "allure open allure-report",
     "lint": "node_modules/.bin/eslint .",
     "lint-fix": "node_modules/.bin/eslint . --fix",
     "format": "prettier --write .",
@@ -14,15 +18,18 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@faker-js/faker": "^10.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.5.0",
+    "allure": "^3.14.0",
+    "allure-jest": "^3.10.2",
+    "dayjs": "^1.11.13",
     "dotenv": "^17.3.1",
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jest": "^29.15.0",
     "jest": "^29.7.0",
     "jiti": "^2.6.1",
-    "joi": "^17.13.3",
     "pactum": "^3.9.1",
     "prettier": "^3.8.1",
     "ts-jest": "^29.4.6",
@@ -48,7 +55,21 @@
     },
     "moduleNameMapper": {
       "^(\\.{1,2}/.*)\\.js$": "$1"
-    }
+    },
+    "collectCoverageFrom": [
+      "common.ts",
+      "config/**/*.ts",
+      "page-objects/**/*.ts",
+      "schemas/**/*.ts",
+      "testData/**/*.ts"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "html",
+      "lcov",
+      "json-summary"
+    ]
   },
   "license": "ISC"
 }

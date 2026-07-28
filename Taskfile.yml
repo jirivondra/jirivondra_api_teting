@@ -14,6 +14,18 @@ tasks:
     desc: Run tests with verbose output
     cmd: npm run test-verbose
 
+  test-coverage:
+    desc: Run tests with code coverage report
+    cmd: npm run test-coverage
+
+  # --- Allure report ---
+  report:
+    desc: Run tests and generate an Allure report
+    cmds:
+      - npm run test-report
+      - npm run allure-generate
+      - npm run allure-open
+
   # --- Code quality ---
   lint:
     desc: Check code with ESLint
